@@ -19,19 +19,6 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibdrivecontroller/build/libyeastcppwpilibdrivecontroller.a
-# /usr/local/lib/libwpiHal.so
-# /usr/local/lib/libwpilibc.so
-# /usr/local/lib/libwpimath.so
-# /usr/local/lib/libwpinet.so
-# /usr/local/lib/libwpiutil.so
-# /usr/local/lib/libntcore.so
-# /usr/local/lib/libwpilibNewCommands.so
-# /usr/local/lib/libntcore.so
-# /usr/local/lib/libwpiutil.so
-# /usr/local/lib/libwpinet.so
-# /usr/local/lib/libwpimath.so
-# /usr/local/lib/libwpilibc.so
-# /usr/local/lib/libwpiHal.so
 
 wpiHal
 wpilibc
