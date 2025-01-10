@@ -1,10 +1,11 @@
 #include <iostream>
-#include <fstream>
 #include <memory>
+#include <fstream>
 
 #include <yeastcppwpilibdrivecontroller/wpilibdrivecontroller.hpp>
 #include <yeastcppwpilibodometryprovider/wpilibodometryprovider.hpp>
 #include <yeastcpppathplannertrajectoryfollower/pathplannertrajectoryfollower.hpp>
+
 
 
 std::shared_ptr<yeast_motion::WPILibDriveController> controller;
@@ -50,17 +51,17 @@ void init()
     {
         pathfollower.reset (new yeast_motion::PathPlannerTrajectoryFollower());
 
-        {
-            std::ifstream f("settings.json");
-            nlohmann::json config = nlohmann::json::parse(f);
-            pathfollower->set_config(config);
-        }
+        // {
+        //     std::ifstream f("settings.json");
+        //     nlohmann::json config = nlohmann::json::parse(f);
+        //     pathfollower->set_config(config);
+        // }
 
-        {
-            std::ifstream f("Path1.json");
-            nlohmann::json path = nlohmann::json::parse(f);
-            pathfollower->begin(path);
-        }
+        // {
+        //     std::ifstream f("Path1.json");
+        //     nlohmann::json path = nlohmann::json::parse(f);
+        //     pathfollower->begin(path);
+        // }
     }
 }
 

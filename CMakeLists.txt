@@ -6,6 +6,7 @@ project(${PROJECT_NAME})
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(hal REQUIRED)
 
 file(GLOB_RECURSE SOURCES
     "src/*.cpp"
@@ -23,6 +24,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibodometryprovider/build/libyeastcppw
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpppathplannertrajectoryfollower/build/libyeastcpppathplannertrajectoryfollower.a
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpp/build/libyeastcpp.a
 
+hal
 wpiHal
 wpilibc
 wpimath
