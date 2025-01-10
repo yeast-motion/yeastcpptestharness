@@ -20,6 +20,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibdrivecontroller/build/libyeastcppwpilibdrivecontroller.a
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibodometryprovider/build/libyeastcppwpilibodometryprovider.a
+${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpppathplannertrajectoryfollower/build/libyeastcpppathplannertrajectoryfollower.a
 ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpp/build/libyeastcpp.a
 
 wpiHal
@@ -40,6 +41,7 @@ wpiHal
 include_directories(SYSTEM
 ../yeastcppwpilibdrivecontroller/include
 ../yeastcppwpilibodometryprovider/include
+../yeastcpppathplannertrajectoryfollower/include
 ../yeastcpp/include
 /usr/local/include/eigen3
 /usr/local/include/wpimath
