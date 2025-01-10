@@ -46,6 +46,10 @@ include_directories(SYSTEM
 /usr/local/include/eigen3
 /usr/local/include/wpimath
 /usr/local/include/wpiutil
+/usr/local/include/wpilibNewCommands
+/usr/local/include/wpilibc
+/usr/local/include/hal
+/usr/local/include/ntcore
 )
 
 # Specify include directories for the library (if needed)

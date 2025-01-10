@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <memory>
 
 #include <yeastcppwpilibdrivecontroller/wpilibdrivecontroller.hpp>
@@ -17,28 +18,50 @@ yeast_motion::OdometrySample pose;
 
 void init()
 {
+    std::cout << "----------------------------------------" << std::endl;
     std::cout << "Initializing" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+
     nlohmann::json controller_config;
-    nlohmann::json odometry_config;
-
-    controller_config["MotorConfig"] = nlohmann::json::array();
-
-    std::vector<std::pair<float, float>> wheel_positions = { {.3,.3}, {.3,-.3}, {-.3,.3}, {-.3,-.3} };
     {
-        int i = 0;
-        for (auto& [x, y] : wheel_positions)
+        controller_config["MotorConfig"] = nlohmann::json::array();
+
+        std::vector<std::pair<float, float>> wheel_positions = { {.3,.3}, {.3,-.3}, {-.3,.3}, {-.3,-.3} };
         {
-            controller_config["MotorConfig"].push_back(nlohmann::json::object());
-            controller_config["MotorConfig"][i]["x"] = x;
-            controller_config["MotorConfig"][i]["y"] = y;
-            i++;
+            int i = 0;
+            for (auto& [x, y] : wheel_positions)
+            {
+                controller_config["MotorConfig"].push_back(nlohmann::json::object());
+                controller_config["MotorConfig"][i]["x"] = x;
+                controller_config["MotorConfig"][i]["y"] = y;
+                i++;
+            }
         }
+
+        controller.reset (new yeast_motion::WPILibDriveController(controller_config));
     }
 
-    odometry_config = controller_config;
+    {
+        nlohmann::json odometry_config;
+        odometry_config = controller_config;
+        odometry.reset (new yeast_motion::WPILibOdometryProvider(odometry_config));
+    }
 
-    controller.reset (new yeast_motion::WPILibDriveController(controller_config));
-    odometry.reset (new yeast_motion::WPILibOdometryProvider(odometry_config));
+    {
+        pathfollower.reset (new yeast_motion::PathPlannerTrajectoryFollower());
+
+        {
+            std::ifstream f("settings.json");
+            nlohmann::json config = nlohmann::json::parse(f);
+            pathfollower->set_config(config);
+        }
+
+        {
+            std::ifstream f("Path1.json");
+            nlohmann::json path = nlohmann::json::parse(f);
+            pathfollower->begin(path);
+        }
+    }
 }
 
 void simulate()
@@ -85,7 +108,6 @@ void print_time (float sim_time)
 
 int main(int argc, char *argv[])
 {
-    std::cout << "----------------------------------------" << std::endl;
     init();
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Runnin" << std::endl;
