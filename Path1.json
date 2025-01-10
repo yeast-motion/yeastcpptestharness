@@ -37,9 +37,16 @@
       "waypointRelativePos": 0.25,
       "endWaypointRelativePos": null,
       "command": {
-        "type": "named",
+        "type": "sequential",
         "data": {
-          "name": "1_command"
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "1_command"
+              }
+            }
+          ]
         }
       }
     },
