@@ -1,7 +1,7 @@
 # Makefile for CMake projects
 
 # Set the default build type to Release
-BUILD_TYPE ?= Release
+BUILD_TYPE ?= Debug
 
 # Set the build directory
 BUILD_DIR ?= build

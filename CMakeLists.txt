@@ -3,10 +3,14 @@ cmake_minimum_required(VERSION 3.10)
 set(PROJECT_NAME "yeastcpptestharness")
 project(${PROJECT_NAME})
 
+add_compile_options(-rdynamic -Wl,-whole-archive)
+add_link_options()
+
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-find_package(hal REQUIRED)
+
+find_package(wpilib REQUIRED)
 
 file(GLOB_RECURSE SOURCES
     "src/*.cpp"
@@ -19,25 +23,16 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibdrivecontroller/build/libyeastcppwpilibdrivecontroller.a
-${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibodometryprovider/build/libyeastcppwpilibodometryprovider.a
-${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpppathplannertrajectoryfollower/build/libyeastcpppathplannertrajectoryfollower.a
-${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpp/build/libyeastcpp.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibdrivecontroller/build/libyeastcppwpilibdrivecontroller.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcppwpilibodometryprovider/build/libyeastcppwpilibodometryprovider.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpppathplannertrajectoryfollower/build/libyeastcpppathplannertrajectoryfollower.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpp/build/libyeastcpp.a
 
-hal
-wpiHal
-wpilibc
-wpimath
-wpinet
-wpiutil
-ntcore
-wpilibNewCommands
-ntcore
-wpiutil
-wpinet
-wpimath
-wpilibc
-wpiHal
+    wpimath
+    wpiutil
+    wpilibc
+    wpilibNewCommands
+    hal
 )
 
 include_directories(SYSTEM
@@ -45,13 +40,6 @@ include_directories(SYSTEM
 ../yeastcppwpilibodometryprovider/include
 ../yeastcpppathplannertrajectoryfollower/include
 ../yeastcpp/include
-/usr/local/include/eigen3
-/usr/local/include/wpimath
-/usr/local/include/wpiutil
-/usr/local/include/wpilibNewCommands
-/usr/local/include/wpilibc
-/usr/local/include/hal
-/usr/local/include/ntcore
 )
 
 # Specify include directories for the library (if needed)
