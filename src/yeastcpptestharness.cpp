@@ -8,6 +8,8 @@
 #include <yeastcppwpilibodometryprovider/wpilibodometryprovider.hpp>
 #include <yeastcpppathplannertrajectoryfollower/pathplannertrajectoryfollower.hpp>
 
+#include <ntcore/networktables/NetworkTableInstance.h>
+
 std::shared_ptr<yeast_motion::WPILibDriveController> controller;
 std::shared_ptr<yeast_motion::WPILibOdometryProvider> odometry;
 std::shared_ptr<yeast_motion::PathPlannerTrajectoryFollower> pathfollower;
@@ -142,6 +144,7 @@ int main(int argc, char *argv[])
         sim_time += dt;
         std::this_thread::sleep_for(std::chrono::milliseconds((int64_t) (dt * 1000)));
     }
+
 
     print_time(sim_time);
     std::cout << "----------------------------------------" << std::endl;

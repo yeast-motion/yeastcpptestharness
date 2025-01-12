@@ -28,6 +28,7 @@ target_link_libraries(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpppathplannertrajectoryfollower/build/libyeastcpppathplannertrajectoryfollower.a
     ${CMAKE_CURRENT_SOURCE_DIR}/../yeastcpp/build/libyeastcpp.a
 
+    ntcore
     wpimath
     wpiutil
     wpilibc
