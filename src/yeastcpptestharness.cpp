@@ -60,7 +60,7 @@ void init()
         }
 
         {
-            std::ifstream f("Path1.json");
+            std::ifstream f("EvilPath.json");
             nlohmann::json path = nlohmann::json::parse(f);
             pathfollower->begin(path);
         }

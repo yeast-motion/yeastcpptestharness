@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
 set(PROJECT_NAME "yeastcpptestharness")
 project(${PROJECT_NAME})
