@@ -130,19 +130,43 @@ void cleanup()
     odometry.reset();
 }
 
+void add_absolute_pose()
+{
+    static int whole_time = 0;
+    if ((int) sim_time > whole_time)
+    {
+        yeast_motion::AbsolutePoseEstimate absolute_pose;
+        absolute_pose.pose.rotation.theta = 0;
+        absolute_pose.pose.translation.x = 10;
+        absolute_pose.pose.translation.y = 2;
+        absolute_pose.timestamp = wpi::math::MathSharedStore::GetTimestamp().value();
+
+        odometry->provide_absolute_position_estimate(absolute_pose);
+
+        std::cout << "Fusing absolute pose" << std::endl;
+        whole_time = (int) sim_time;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     init();
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Running" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
+    
+    print_time(sim_time + 1);
 
-    while (sim_time < 10.0)
+    while (sim_time < 15.0)
     {
-        print_time(sim_time + 1);
         simulate();
         sim_time += dt;
         std::this_thread::sleep_for(std::chrono::milliseconds((int64_t) (dt * 1000)));
+        if (sim_time > 10.0)
+        {
+            add_absolute_pose();
+        }
+        print_time(sim_time + 1);
     }
 
 
