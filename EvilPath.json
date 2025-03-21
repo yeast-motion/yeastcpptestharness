@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 3.738521252012985,
+        "y": 5.679469373296802
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.999999999999998,
-        "y": 0.0
+        "x": 3.792974980762997,
+        "y": 5.435471849897034
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Ready2_BLUE"
     },
     {
       "anchor": {
-        "x": 10.0,
-        "y": 2.0
+        "x": 4.028514305320946,
+        "y": 5.1574261639569245
       },
       "prevControl": {
-        "x": 1.0,
-        "y": 2.0
+        "x": 3.671597765108719,
+        "y": 5.994285424939159
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score2_BLUE"
     }
   ],
   "rotationTargets": [],
@@ -33,63 +33,34 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Example Marker",
-      "waypointRelativePos": 0.25,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "1_command"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Example Marker",
-      "waypointRelativePos": 0.5,
+      "name": "score2",
+      "waypointRelativePos": 0.94,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "2_command"
-        }
-      }
-    },
-    {
-      "name": "Example Marker",
-      "waypointRelativePos": 0.75,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "3_command"
+          "name": "score2"
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.5,
+    "maxAngularVelocity": 572.958,
+    "maxAngularAcceleration": 776.7539628722,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "BlueBarge_4_Blue",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 1.5,
+    "rotation": -59.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

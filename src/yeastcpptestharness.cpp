@@ -16,6 +16,7 @@ std::shared_ptr<yeast_motion::PathPlannerTrajectoryFollower> pathfollower;
 
 float sim_time = 0;
 float dt = 0.01;
+yeast_motion::OdometrySample start_pose;
 
 yeast_motion::MotionState motion_state;
 
@@ -24,6 +25,13 @@ void init()
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Initializing" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
+
+    start_pose.pose.translation.x = 3.738521252012985;
+    start_pose.pose.translation.y = 5.679469373296802;
+    start_pose.pose.rotation.theta = -60.0 * M_PI / 180.0;
+    start_pose.pose_valid = true;
+    start_pose.velocity.x = 1.5;
+    start_pose.velocity_valid = true;
 
     nlohmann::json controller_config;
     {
@@ -48,6 +56,9 @@ void init()
         nlohmann::json odometry_config;
         odometry_config = controller_config;
         odometry.reset (new yeast_motion::WPILibOdometryProvider(odometry_config));
+        odometry->reset (start_pose);
+        motion_state.measurement = odometry->get();
+        std::cout << "Motion State: " << std::endl << motion_state.to_json().dump(2) << std::endl;
     }
 
     {
@@ -62,7 +73,7 @@ void init()
         {
             std::ifstream f("EvilPath.json");
             nlohmann::json path = nlohmann::json::parse(f);
-            pathfollower->begin(path);
+            pathfollower->begin(path, motion_state);
         }
     }
 }
@@ -130,23 +141,23 @@ void cleanup()
     odometry.reset();
 }
 
-void add_absolute_pose()
-{
-    static int whole_time = 0;
-    if ((int) sim_time > whole_time)
-    {
-        yeast_motion::AbsolutePoseEstimate absolute_pose;
-        absolute_pose.pose.rotation.theta = 0;
-        absolute_pose.pose.translation.x = 10;
-        absolute_pose.pose.translation.y = 2;
-        absolute_pose.timestamp = wpi::math::MathSharedStore::GetTimestamp().value();
+// void add_absolute_pose()
+// {
+//     static int whole_time = 0;
+//     if ((int) sim_time > whole_time)
+//     {
+//         yeast_motion::AbsolutePoseEstimate absolute_pose;
+//         absolute_pose.pose.rotation.theta = 0;
+//         absolute_pose.pose.translation.x = 10;
+//         absolute_pose.pose.translation.y = 2;
+//         absolute_pose.timestamp = wpi::math::MathSharedStore::GetTimestamp().value();
 
-        odometry->provide_absolute_position_estimate(absolute_pose);
+//         odometry->provide_absolute_position_estimate(absolute_pose);
 
-        std::cout << "Fusing absolute pose" << std::endl;
-        whole_time = (int) sim_time;
-    }
-}
+//         std::cout << "Fusing absolute pose" << std::endl;
+//         whole_time = (int) sim_time;
+//     }
+// }
 
 int main(int argc, char *argv[])
 {
@@ -157,21 +168,23 @@ int main(int argc, char *argv[])
     
     print_time(sim_time + 1);
 
-    while (sim_time < 15.0)
+    while (!pathfollower->status().finished)
     {
         simulate();
         sim_time += dt;
         std::this_thread::sleep_for(std::chrono::milliseconds((int64_t) (dt * 1000)));
-        if (sim_time > 10.0)
-        {
-            add_absolute_pose();
-        }
+        // if (sim_time > 10.0)
+        // {
+        //     add_absolute_pose();
+        // }
         print_time(sim_time + 1);
+        
     }
 
 
     print_time(sim_time);
     std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Total Time: " << sim_time << std::endl;
     std::cout << "End Pose: " << motion_state.measurement.pose.to_json().dump(2) << std::endl;
     std::cout << "----------------------------------------" << std::endl;
 
